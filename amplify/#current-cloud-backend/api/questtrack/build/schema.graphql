@@ -1,0 +1,268 @@
+type Characters @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  hp: Int
+  ap: Int
+  height: String
+  pronouns: String
+  class: String
+  hometown: String
+  items: String
+  clothes: String
+  abilities: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelCharactersConnection @aws_api_key @aws_iam {
+  items: [Characters]!
+  nextToken: String
+}
+
+input ModelCharactersFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  hp: ModelIntInput
+  ap: ModelIntInput
+  height: ModelStringInput
+  pronouns: ModelStringInput
+  class: ModelStringInput
+  hometown: ModelStringInput
+  items: ModelStringInput
+  clothes: ModelStringInput
+  abilities: ModelStringInput
+  and: [ModelCharactersFilterInput]
+  or: [ModelCharactersFilterInput]
+  not: ModelCharactersFilterInput
+}
+
+type Query {
+  getCharacters(id: ID!): Characters @aws_api_key @aws_iam
+  listCharacters(filter: ModelCharactersFilterInput, limit: Int, nextToken: String): ModelCharactersConnection @aws_api_key @aws_iam
+}
+
+input ModelCharactersConditionInput {
+  name: ModelStringInput
+  hp: ModelIntInput
+  ap: ModelIntInput
+  height: ModelStringInput
+  pronouns: ModelStringInput
+  class: ModelStringInput
+  hometown: ModelStringInput
+  items: ModelStringInput
+  clothes: ModelStringInput
+  abilities: ModelStringInput
+  and: [ModelCharactersConditionInput]
+  or: [ModelCharactersConditionInput]
+  not: ModelCharactersConditionInput
+}
+
+input CreateCharactersInput {
+  id: ID
+  name: String!
+  hp: Int
+  ap: Int
+  height: String
+  pronouns: String
+  class: String
+  hometown: String
+  items: String
+  clothes: String
+  abilities: String
+}
+
+input UpdateCharactersInput {
+  id: ID!
+  name: String
+  hp: Int
+  ap: Int
+  height: String
+  pronouns: String
+  class: String
+  hometown: String
+  items: String
+  clothes: String
+  abilities: String
+}
+
+input DeleteCharactersInput {
+  id: ID!
+}
+
+type Mutation {
+  createCharacters(input: CreateCharactersInput!, condition: ModelCharactersConditionInput): Characters @aws_api_key @aws_iam
+  updateCharacters(input: UpdateCharactersInput!, condition: ModelCharactersConditionInput): Characters @aws_api_key @aws_iam
+  deleteCharacters(input: DeleteCharactersInput!, condition: ModelCharactersConditionInput): Characters @aws_api_key @aws_iam
+}
+
+input ModelSubscriptionCharactersFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  hp: ModelSubscriptionIntInput
+  ap: ModelSubscriptionIntInput
+  height: ModelSubscriptionStringInput
+  pronouns: ModelSubscriptionStringInput
+  class: ModelSubscriptionStringInput
+  hometown: ModelSubscriptionStringInput
+  items: ModelSubscriptionStringInput
+  clothes: ModelSubscriptionStringInput
+  abilities: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCharactersFilterInput]
+  or: [ModelSubscriptionCharactersFilterInput]
+}
+
+type Subscription {
+  onCreateCharacters(filter: ModelSubscriptionCharactersFilterInput): Characters @aws_subscribe(mutations: ["createCharacters"]) @aws_api_key @aws_iam
+  onUpdateCharacters(filter: ModelSubscriptionCharactersFilterInput): Characters @aws_subscribe(mutations: ["updateCharacters"]) @aws_api_key @aws_iam
+  onDeleteCharacters(filter: ModelSubscriptionCharactersFilterInput): Characters @aws_subscribe(mutations: ["deleteCharacters"]) @aws_api_key @aws_iam
+}

@@ -1,0 +1,8 @@
+{
+    "AppSyncApiName": "questtrack",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthModeLastUpdated": "2023-09-22T03:13:56.932Z",
+    "S3DeploymentBucket": "amplify-questtrack-dev-225001-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/92734c2ae56213db96bf2673db93ee4c63ab1527"
+}

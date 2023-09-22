@@ -1,0 +1,14 @@
+type Characters @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  hp: Int
+  ap: Int
+  height: String
+  pronouns: String
+  class: String
+  hometown: String
+  items: String
+  clothes: String
+  abilities: String
+}
+ 
